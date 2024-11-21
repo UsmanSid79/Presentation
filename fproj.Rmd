@@ -1,0 +1,118 @@
+---
+title: "Flights Do Not Have To Be Frustrating Anymore"
+output: slidy_presentation
+date: "2024-11-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Air travel saw significant growth in the mid-20th century, and the **AirPassengers** dataset offers a glimpse into this trend. This dataset contains monthly passenger counts for an international airline from 1949 to 1960 and finally all the way up to 2013. This project will explore the dataset to discover long-term trends, seasonal variations, and patterns in airline passenger numbers.
+
+---
+
+# Dataset Overview
+
+The **AirPassengers** dataset is a built-in time series dataset in R. It contains monthly data spanning 12 years, with variables representing the year, month, and passenger counts.
+
+```{r}
+data("AirPassengers")
+
+# Convert it into a dataframe
+airpassengers_df <- data.frame(
+  Year = rep(1949:1960, each = 12),
+  Month = rep(month.name, times = 12),
+  Passengers = as.numeric(AirPassengers)
+)
+
+head(airpassengers_df)
+
+
+```
+
+
+```{r}
+summary(airpassengers_df)
+
+```
+
+# Monthly Airline Passengers
+
+Next chunk of code creates a continuous time variable by adding the fractional part of each month to the year, adjusted to center each month around its midpoint. This makes the time suitable for smooth plotting and trend analysis.
+
+```{r}
+library(ggplot2)
+ggplot(airpassengers_df, aes(x = Year + (1:12)/12 - 1/24, y = Passengers)) +
+  geom_line(color = "steelblue", line_width = 1) +
+  labs(
+    title = "Monthly Airline Passengers (1949-1960)",
+    x = "Year",
+    y = "Passengers"
+  )
+
+```
+
+
+# Seasonal Trends
+
+```{r}
+ggplot(airpassengers_df, aes(x = Month, y = Passengers)) +
+  geom_boxplot(fill = "lightblue", color = "darkblue") +
+  labs(
+    title = "Seasonal Trends in Air Travel",
+    x = "Month",
+    y = "Passengers"
+  )
+
+```
+
+# Flight Delays In The new Century (2013)
+
+
+
+```{r}
+library(nycflights13)
+library(dplyr)
+
+flights_with_airlines <- flights %>%
+  filter(!is.na(dep_delay)) %>%  
+  left_join(airlines, by = "carrier")
+
+ggplot(flights_with_airlines, aes(x = reorder(name, dep_delay), y = dep_delay)) +
+  geom_boxplot(outlier.color = "red", fill = "lightblue") +
+  coord_flip() +
+  labs(
+    title = "Distribution of Departure Delays by Airline",
+    x = "Airline",
+    y = "Departure Delay (minutes)"
+  )
+
+```
+
+# What can we deduce from this?
+
+The box plot reveals that some airlines consistently have shorter delays, making them a better choice for timely travel when visiting relatives. To avoid disruptions, consider flying earlier in the day, as delays tend to accumulate later due to cascading scheduling issues. Additionally, avoid airlines with frequent extreme delays (outliers) for smoother travel experiences.
+
+
+```{r}
+library(ggplot2)
+
+average_delay <- flights_with_airlines %>%
+  group_by(name) %>%
+  summarise(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay))
+
+ggplot(average_delay, aes(x = reorder(name, avg_delay), y = avg_delay)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Average Departure Delay by Airline",
+    x = "Airline",
+    y = "Average Departure Delay (minutes)"
+  ) 
+```
+
+
