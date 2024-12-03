@@ -14,6 +14,17 @@ Air travel saw significant growth in the mid-20th century, and the **AirPassenge
 
 ---
 
+# Problem
+This project addresses the challemnges of air travel. Air travel is a very important component of global connectivity and if the passengers are aware of the challenges that come with it, they can streamline their travel experience. Some of the challenges include delays, overbooking, missing baggages and etc.
+We will be manipulating nycflights13 and airpassengers database to tackle our challenge and find out what flights we can pick to avoid running into delays.
+
+---
+
+# Approach
+We are using **nycflights13** and **AirPassengers** database, additionally: data visualization tools, such as ggplot2, are deployed to extract seasonal trends, visualize departure delays, and identify patterns in airline operations.
+---
+
+
 # Dataset Overview
 
 The **AirPassengers** dataset is a built-in time series dataset in R. It contains monthly data spanning 12 years, with variables representing the year, month, and passenger counts.
