@@ -126,12 +126,12 @@ ggplot(average_delay, aes(x = reorder(name, avg_delay), y = avg_delay)) +
   ) 
 ```
 
-Summary: Challenges and Observations in Air Travel
+# Summary: Challenges and Observations in Air Travel
 Air travel has many issues, such as flight delays, cancellations, overbooking, and problems with baggage. Our study of the AirPassengers data shows a longterm increase in airline passengers, with seasonal highs and lows that match general travel trends. By examining flight delay data from 2013, we found out how delays differ between airlines, identifying which ones have more frequent or severe delays.
 
 The box plots in our analysis show significant differences in departure delays among airlines. Some airlines consistently have delays, while others have better on-time performance. This information can help travelers choose airlines more wisely, possibly improving their travel experience by avoiding carriers with frequent delays or extreme delays.
 
-Summary: Impacts and Restrictions
+# Summary: Implications and Limitations
 The results of this study have significant effects for both airlines and travelers. Airlines can use this information to enhance their operations, make their schedules more efficient, and cut down on delays. For travelers, knowing about delay patterns can help them make smarter choices, like picking airlines with fewer delays or booking earlier flights to avoid long waits. This knowledge could also lead to better policies for making air travel more efficient and dependable.
 
 But it's important to remember the limitations of this analysis. The AirPassengers dataset only includes monthly airline passenger numbers from 1949 to 1960, which might not reflect current air travel trends. Also, the flight delay data from 2013 doesn't consider factors like weather, technical problems, or overall airport delays, which could affect the results. Moreover, the dataset does not include information about locations, so we can't see how different airports or areas affect flight delays. This limits our analysis to just airline performance without looking at the bigger picture of how operations work in different places.
